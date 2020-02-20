@@ -54,3 +54,23 @@ def get_task(id):
     except Exception as e:
         print('Error: ', e)
         return None
+
+def update_status(id, status):
+    if(status.lower().strip() == 'not started'):
+        status = NOTSTARTED
+    elif(status.lower().strip() == 'in progress'):
+        status = INPROGRESS
+    elif(status.lower().strip() == 'completed'):
+        status = COMPLETED
+    else:
+        print("Invalid Status - " + status)
+        return None
+    
+    try:
+        CURSOR.execute('update tasks set status=? where id=?', (status, id))
+        CONNECTION.commit()
+
+        return get_task(id)
+    except Exception as e:
+        print('Error: ', e)
+        return None

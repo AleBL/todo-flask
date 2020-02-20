@@ -46,3 +46,16 @@ def get_task():
       return Response(convertJSON(data), status=404 , mimetype="application/json")
 
    return Response(task, status=200, mimetype="application/json")
+
+@app.route("/task", methods = ["PUT"])
+def update_status():
+   request_data = request.get_json()
+   id = request_data["id"]
+   status = request_data["status"]
+   
+   updated_task = connection.update_status(id, status)
+   if updated_task is None:
+      data = { "Error": "Task with id = %i was not updated" % id }
+      return Response(convertJSON(data), status=422 , mimetype="application/json")
+   
+   return Response(updated_task, status=200, mimetype="application/json")
