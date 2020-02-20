@@ -23,3 +23,8 @@ def add_task():
       return Response(convertJSON(data), status=422 , mimetype="application/json")
    
    return Response(new_task, status=200, mimetype="application/json")
+
+@app.route("/tasks", methods = ["GET"])
+def get_all_tasks():
+   all_tasks = connection.all_tasks()
+   return Response(all_tasks, status=200, mimetype="application/json")
