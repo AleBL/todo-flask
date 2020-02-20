@@ -4,6 +4,8 @@ from util.util_json import convertJSON
 
 DATABASE_PATH = 'storage/database.db'
 NOTSTARTED = 'Not Started'
+INPROGRESS = 'In Progress'
+COMPLETED = 'Completed'
 
 CONNECTION = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
 CURSOR = CONNECTION.cursor()
