@@ -1,4 +1,5 @@
 import sqlite3
+from util import turple
 from util.util_json import convertJSON
 
 DATABASE_PATH = 'storage/database.db'
@@ -27,16 +28,8 @@ def all_tasks():
     try:
         CURSOR.execute('select * from tasks')
         all_tasks = CURSOR.fetchall()
-
-        all_tasks_json = []
-
-        for task in all_tasks:
-            task_iter = iter(task)
-            all_tasks_json += [{
-                "id": next(task_iter),
-                "name": next(task_iter),
-                "status": next(task_iter)
-            }]
+        
+        all_tasks_json = list(map(lambda task : turple.to_task_DICT(task), all_tasks))
         
         data = { 
             "total_tasks": len(all_tasks), 
