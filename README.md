@@ -8,9 +8,9 @@
 # Database
 Inside the `database.db` file are the database data and code:
 ```sqlite
-  CREATE TABLE "items" (
+  CREATE TABLE "tasks" (
     "id"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
-    "item"	TEXT NOT NULL,
+    "name"	TEXT NOT NULL,
     "status"	TEXT
   );
 ```
