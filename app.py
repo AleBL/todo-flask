@@ -29,20 +29,18 @@ def get_all_tasks():
    all_tasks = connection.all_tasks()
    return Response(all_tasks, status=200, mimetype="application/json")
 
-@app.route("/task", methods=["GET"])
-def get_task():
-   task_id = request.args.get("id")
-
+@app.route("/task/<id>", methods=["GET"])
+def get_task(id):
    try:
-      task_id = int(task_id)
+      id = int(id)
    except Exception:
-      data = { "Error": "parameter '" + task_id + "' not is a number" }
+      data = { "Error": "parameter '" + id + "' not is a number" }
       return Response(convertJSON(data), status=422 , mimetype="application/json")
 
-   task = connection.get_task(task_id)
+   task = connection.get_task(id)
    
    if task is None:
-      data = { "Error": "Task with id = %i not found" % task_id }
+      data = { "Error": "Task with id = %i not found" % id }
       return Response(convertJSON(data), status=404 , mimetype="application/json")
 
    return Response(task, status=200, mimetype="application/json")
