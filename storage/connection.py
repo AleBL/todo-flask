@@ -74,3 +74,15 @@ def update_status(id, status):
     except Exception as e:
         print('Error: ', e)
         return None
+
+def delete_task(id):
+    try:
+        task = get_task(id)
+
+        CURSOR.execute('delete from tasks where id=?', (id,))
+        CONNECTION.commit()
+
+        return task
+    except Exception as e:
+        print('Error: ', e)
+        return None

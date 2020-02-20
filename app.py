@@ -59,3 +59,18 @@ def update_status():
       return Response(convertJSON(data), status=422 , mimetype="application/json")
    
    return Response(updated_task, status=200, mimetype="application/json")
+
+@app.route("/task/<id>", methods = ["DELETE"])
+def delete_item(id):
+   try:
+      id = int(id)
+   except Exception:
+      data = { "Error": "parameter '" + id + "' not is a number" }
+      return Response(convertJSON(data), status=422 , mimetype="application/json")
+
+   deleted_task = connection.delete_task(id)
+   if deleted_task is None:
+      data = { "Error": "Task with id = %i was not deleted" % id }
+      return Response(convertJSON(data), status=422 , mimetype="application/json")
+   
+   return Response(deleted_task, status=200, mimetype="application/json")
