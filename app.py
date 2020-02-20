@@ -19,7 +19,7 @@ def add_task():
    new_task = connection.add_task(task)
 
    if new_task is None:
-      data = { "error": "Item not added" }
+      data = { "Error": "Item not added" }
       return Response(convertJSON(data), status=422 , mimetype="application/json")
    
    return Response(new_task, status=200, mimetype="application/json")
@@ -28,3 +28,21 @@ def add_task():
 def get_all_tasks():
    all_tasks = connection.all_tasks()
    return Response(all_tasks, status=200, mimetype="application/json")
+
+@app.route("/task", methods=["GET"])
+def get_task():
+   task_id = request.args.get("id")
+
+   try:
+      task_id = int(task_id)
+   except Exception:
+      data = { "Error": "parameter '" + task_id + "' not is a number" }
+      return Response(convertJSON(data), status=422 , mimetype="application/json")
+
+   task = connection.get_task(task_id)
+   
+   if task is None:
+      data = { "Error": "Task with id = %i not found" % task_id }
+      return Response(convertJSON(data), status=404 , mimetype="application/json")
+
+   return Response(task, status=200, mimetype="application/json")

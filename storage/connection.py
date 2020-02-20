@@ -40,3 +40,15 @@ def all_tasks():
     except Exception as e:
         print('Error: ', e)
         return None
+
+def get_task(id):
+    try:
+        CURSOR.execute("select * from tasks where id=%i" % id)
+        task = CURSOR.fetchone()
+
+        task = turple.to_task_DICT(task)
+
+        return convertJSON(task)
+    except Exception as e:
+        print('Error: ', e)
+        return None
