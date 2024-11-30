@@ -1,6 +1,10 @@
 from storage import connection
 from flask import Flask, request, Response
 from util.util_json import convertJSON
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
 
