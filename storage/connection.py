@@ -1,4 +1,4 @@
-import sqlite3
+import pysqlite3
 from util import turple
 from util.util_json import convertJSON
 
@@ -7,7 +7,7 @@ NOTSTARTED = 'Not Started'
 INPROGRESS = 'In Progress'
 COMPLETED = 'Completed'
 
-CONNECTION = sqlite3.connect(DATABASE_PATH, check_same_thread=False)
+CONNECTION = pysqlite3.connect(DATABASE_PATH, check_same_thread=False)
 CURSOR = CONNECTION.cursor()
 
 def add_task(task):
